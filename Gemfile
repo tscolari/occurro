@@ -7,6 +7,7 @@ gemspec
 
 # jquery-rails is used by the dummy application
 gem 'rspec'
+gem 'debugger'
 gem "jquery-rails"
 gem 'rspec-rails'
 gem 'database_cleaner'

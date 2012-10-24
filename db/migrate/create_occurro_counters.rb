@@ -11,8 +11,8 @@ class CreateOccurroCounters < ActiveRecord::Migration
       t.timestamps
     end
     add_index :occurro_counters , [:countable_type , :countable_id] , unique: true , name: 'countable_unq'
-    add_index :occurro_counters , [:countable_type , :today         , :yesterday]
-    add_index :occurro_counters , [:countable_type , :this_month    , :last_month]
-    add_index :occurro_counters , [:countable_type , :this_week     , :last_week]
+    add_index :occurro_counters , [:countable_type , :today         , :yesterday]  , name: 'countable_type_daily'
+    add_index :occurro_counters , [:countable_type , :this_month    , :last_month] , name: 'countable_type_monthly'
+    add_index :occurro_counters , [:countable_type , :this_week     , :last_week]  , name: 'countable_type_weekly'
   end
 end

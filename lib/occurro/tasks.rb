@@ -22,7 +22,7 @@ module Occurro
     private
 
     # PrivatE: Update counters for the period type and countable_type
-    def self.update_counters(period_type, countable_type)
+    def self.update_counters(period_type, countable_type = nil)
       counters = Occurro::Counter
       counters.where(updatable_type: countable_type) if countable_type
       counters.all.each do |counter|

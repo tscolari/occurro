@@ -11,6 +11,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20121023235347) do
+
+  create_table "occurro_counters", :force => true do |t|
+    t.integer  "countable_id"
+    t.string   "countable_type"
+    t.integer  "today",          :default => 0, :null => false
+    t.integer  "yesterday",      :default => 0, :null => false
+    t.integer  "this_week",      :default => 0, :null => false
+    t.integer  "last_week",      :default => 0, :null => false
+    t.integer  "this_month",     :default => 0, :null => false
+    t.integer  "last_month",     :default => 0, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "occurro_counters", ["countable_type", "countable_id"], :name => "countable_unq", :unique => true
+  add_index "occurro_counters", ["countable_type", "this_month", "last_month"], :name => "countable_type_monthly"
+  add_index "occurro_counters", ["countable_type", "this_week", "last_week"], :name => "countable_type_weekly"
+  add_index "occurro_counters", ["countable_type", "today", "yesterday"], :name => "countable_type_daily"
+
+  create_table "occurro_daily_counters", :force => true do |t|
+    t.integer  "countable_id"
+    t.string   "countable_type"
+    t.integer  "counter",        :default => 0, :null => false
+    t.date     "created_on"
+    t.datetime "updated_at"
+  end
+
+  add_index "occurro_daily_counters", ["countable_type", "countable_id", "created_on"], :name => "daily_counter_unq", :unique => true
+  add_index "occurro_daily_counters", ["countable_type", "counter"], :name => "daily_counter_counter"
 
 end
