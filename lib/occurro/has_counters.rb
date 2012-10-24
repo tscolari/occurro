@@ -8,6 +8,8 @@ module Occurro
 
       cattr_reader :occurro_counter_cache
       @@occurro_counter_cache = 1
+      cattr_reader :occurro_use_daily_counters
+      @@occurro_use_daily_counters = true
     end
 
   end

@@ -50,6 +50,7 @@ module Occurro
         :this_month => counter.this_month + count,
         :total      => counter.total      + count
       }) 
+      Occurro::DailyCounter.increase_counters(model, count) if model.occurro_use_daily_counters
     end
 
   end

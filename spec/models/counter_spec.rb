@@ -33,6 +33,29 @@ module Occurro
         dummy.counter.this_week.should  == old_counter.this_week  + 100
         dummy.counter.this_month.should == old_counter.this_month + 100
       end
+
+      context "Daily Counter" do
+        context "with daily counter" do
+          before :each do
+            DummyItem.class_variable_set(:@@occurro_use_daily_counters, true)
+          end
+          
+          it "should call increase_counters from daily_counter" do
+            Occurro::DailyCounter.should_receive(:increase_counters).with(dummy, 10)
+            Occurro::Counter.increase_counters(dummy, 10)
+          end
+
+        end
+
+        context "without daily counter" do
+          before :each do
+            DummyItem.class_variable_set(:@@occurro_use_daily_counters, false)
+            Occurro::DailyCounter.should_receive(:increase_counters).never
+            Occurro::Counter.increase_counters(dummy, 10)
+          end
+
+        end
+      end
     end
 
   end
