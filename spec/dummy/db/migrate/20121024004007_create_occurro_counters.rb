@@ -8,6 +8,7 @@ class CreateOccurroCounters < ActiveRecord::Migration
       t.integer    :last_week  , default: 0 , null: false
       t.integer    :this_month , default: 0 , null: false
       t.integer    :last_month , default: 0 , null: false
+      t.integer    :total      , default: 0 , null: false
       t.timestamps
     end
     add_index :occurro_counters , [:countable_type , :countable_id] , unique: true , name: 'countable_unq'

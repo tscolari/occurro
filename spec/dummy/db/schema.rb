@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121024001742) do
+ActiveRecord::Schema.define(:version => 20121024004008) do
 
   create_table "dummy_items", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20121024001742) do
     t.integer  "last_week",      :default => 0, :null => false
     t.integer  "this_month",     :default => 0, :null => false
     t.integer  "last_month",     :default => 0, :null => false
+    t.integer  "total",          :default => 0, :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
