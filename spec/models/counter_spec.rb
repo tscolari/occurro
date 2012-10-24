@@ -3,7 +3,8 @@ require 'spec_helper'
 module Occurro
   describe Counter do
 
-    let(:counter) { FactoryGirl.build(:counter) }
+    let(:counter) { FactoryGirl.create(:counter) }
+    let(:dummy)   { counter.countable }
 
     describe "#update_counter" do
 
@@ -22,6 +23,18 @@ module Occurro
       end
       
     end
+
+    describe "#increase_counters" do
+      it "should increase all current counters by the same factor" do
+        old_counter = counter
+        Occurro::Counter.increase_counters(dummy, 100)
+        dummy.reload
+        dummy.counter.today.should      == old_counter.today      + 100
+        dummy.counter.this_week.should  == old_counter.this_week  + 100
+        dummy.counter.this_month.should == old_counter.this_month + 100
+      end
+    end
+
   end
 end
 
