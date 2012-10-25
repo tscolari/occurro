@@ -36,7 +36,7 @@ module Occurro
 
       context "Daily Counter" do
         context "with daily counter" do
-          before(:each) { DummyItem.class_variable_set(:@@occurro_use_daily_counters, true) }
+          before(:each) { DummyItem.class_variable_set(:@@occurro_options, { use_daily_counters: true }) }
           
           it "should call increment_counters from daily_counter" do
             Occurro::DailyCounter.should_receive(:increment_counters).with(dummy, 10)
@@ -46,7 +46,7 @@ module Occurro
         end
 
         context "without daily counter" do
-          before(:each) { DummyItem.class_variable_set(:@@occurro_use_daily_counters, false) }
+          before(:each) { DummyItem.class_variable_set(:@@occurro_options, { use_daily_counters: false }) }
 
           it "should never call increment_counters from daily_counter" do
             Occurro::DailyCounter.should_receive(:increment_counters).never
