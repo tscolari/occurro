@@ -21,4 +21,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "factory_girl_rails"
+  s.add_development_dependency "resque"
+  s.add_development_dependency "delayed_job_active_record"
 end

@@ -24,10 +24,10 @@ module Occurro
       
     end
 
-    describe "#increase_counters" do
-      it "should increase all current counters by the same factor" do
+    describe "#increment_counters" do
+      it "should increment all current counters by the same factor" do
         old_counter = counter
-        Occurro::Counter.increase_counters(dummy, 100)
+        Occurro::Counter.increment_counters(dummy, 100)
         dummy.reload
         dummy.counter.today.should      == old_counter.today      + 100
         dummy.counter.this_week.should  == old_counter.this_week  + 100
@@ -38,9 +38,9 @@ module Occurro
         context "with daily counter" do
           before(:each) { DummyItem.class_variable_set(:@@occurro_use_daily_counters, true) }
           
-          it "should call increase_counters from daily_counter" do
-            Occurro::DailyCounter.should_receive(:increase_counters).with(dummy, 10)
-            Occurro::Counter.increase_counters(dummy, 10)
+          it "should call increment_counters from daily_counter" do
+            Occurro::DailyCounter.should_receive(:increment_counters).with(dummy, 10)
+            Occurro::Counter.increment_counters(dummy, 10)
           end
 
         end
@@ -48,9 +48,9 @@ module Occurro
         context "without daily counter" do
           before(:each) { DummyItem.class_variable_set(:@@occurro_use_daily_counters, false) }
 
-          it "should never call increase_counters from daily_counter" do
-            Occurro::DailyCounter.should_receive(:increase_counters).never
-            Occurro::Counter.increase_counters(dummy, 10)
+          it "should never call increment_counters from daily_counter" do
+            Occurro::DailyCounter.should_receive(:increment_counters).never
+            Occurro::Counter.increment_counters(dummy, 10)
           end
 
         end

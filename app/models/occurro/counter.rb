@@ -40,9 +40,9 @@ module Occurro
       self.save 
     end
 
-    # Public: Increases 'model' counters by a 'count' factor
+    # Public: increments 'model' counters by a 'count' factor
     #
-    def self.increase_counters(model, count = 1)
+    def self.increment_counters(model, count = 1)
       counter = Occurro::Counter.find_or_create_by_countable_type_and_countable_id(model.class.name, model.id)
       counter.update_attributes({
         :today      => counter.today      + count,
@@ -50,7 +50,7 @@ module Occurro
         :this_month => counter.this_month + count,
         :total      => counter.total      + count
       }) 
-      Occurro::DailyCounter.increase_counters(model, count) if model.occurro_use_daily_counters
+      Occurro::DailyCounter.increment_counters(model, count) if model.occurro_use_daily_counters
     end
 
   end
