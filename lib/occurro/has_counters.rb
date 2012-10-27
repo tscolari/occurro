@@ -13,11 +13,21 @@ module Occurro
       }
     end
 
+    # Public: Increments the counter in 1 for this model
+    #
+    def increment_counter
+      return Occurro::CachedCounter.increment_counter(self) if self.class.counter_cache > 0
+      Occurro::Jobs::Sender.increment_counters_job(self, 1)
+    end
+
     module ClassMethods
 
       def use_daily_counters?
-        #!!class_variable_get(:@@occurro_options)[:use_daily_counters]
         !!self.occurro_options[:use_daily_counters]
+      end
+
+      def counter_cache
+        self.occurro_options[:counter_cache]
       end
 
       private
@@ -48,8 +58,5 @@ module Occurro
         yield(self.occurro_options)
       end
     end
-
-    private
-
   end
 end

@@ -15,6 +15,8 @@ module Occurro
     scope :order_by_last_month , order('last_month DESC')
     scope :order_by_total      , order('total DESC')
 
+
+
     # Public: Rotate the counter value for the period_type
     #
     # * period_type: 
