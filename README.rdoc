@@ -1,3 +1,4 @@
 = Occurro
 
-This project rocks and uses MIT-LICENSE.
+= License
+This project is released under MIT-LICENSE.
