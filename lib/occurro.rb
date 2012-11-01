@@ -2,6 +2,7 @@ require "occurro/engine"
 require "occurro/tasks"
 require "occurro/has_counters"
 require "occurro/cached_counter"
+require "occurro/cached_session"
 require "occurro/jobs/sender"
 require "occurro/jobs/resque"
 require 'occurro/jobs/delayed_job'

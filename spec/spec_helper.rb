@@ -19,6 +19,10 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 
+  config.before(:each, type: :controller) { @routes = Occurro::Engine.routes }
+  config.before(:each, type: :routing)    { @routes = Occurro::Engine.routes }
+  
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   #config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

@@ -6,12 +6,18 @@ source "http://rubygems.org"
 gemspec
 
 # jquery-rails is used by the dummy application
-gem 'rspec'
-gem 'debugger'
 gem "jquery-rails"
-gem 'rspec-rails'
-gem 'database_cleaner'
-gem 'factory_girl_rails'
+
+gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
+gem 'sqlite3', platform: :ruby
+
+group :test do
+  gem 'rspec-rails'
+  gem 'rspec'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+end
+
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
