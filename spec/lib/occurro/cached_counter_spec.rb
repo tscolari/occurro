@@ -16,8 +16,10 @@ module Occurro
         (4..6).each do |cache_value|
           it "should forward to Occurro::Jobs::Sender with #{cache_value + 1}" do
             Occurro::CachedCounter.send(:update_cached_counter, model, cache_value)
+            Rails.cache.read(Occurro::CachedCounter.key_name(model)).should_not eq 0
             Occurro::Jobs::Sender.should_receive(:increment_counters_job).with(model, cache_value + 1)
             Occurro::CachedCounter.increment_counter(model)
+            Rails.cache.read(Occurro::CachedCounter.key_name(model)).should eq 0
           end
         end
         
@@ -31,6 +33,7 @@ module Occurro
             Occurro::Jobs::Sender.should_receive(:increment_counters_job).never
             Occurro::CachedCounter.should_receive(:update_cached_counter).with(model, cache_value + 1)
             Occurro::CachedCounter.increment_counter(model)
+            Rails.cache.read(Occurro::CachedCounter.key_name(model)).should eq cache_value
           end
         end
       end
