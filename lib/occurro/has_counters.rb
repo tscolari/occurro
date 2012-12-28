@@ -11,6 +11,14 @@ module Occurro
         counter_cache: 0,
         use_daily_counters: true
       }
+
+      scope :order_by_today_views      , ->() { joins(:counter).order('today DESC') }
+      scope :order_by_yesterday_views  , ->() { joins(:counter).order('yesterday DESC') }
+      scope :order_by_this_week_views  , ->() { joins(:counter).order('this_week DESC') }
+      scope :order_by_last_week_views  , ->() { joins(:counter).order('last_week DESC') }
+      scope :order_by_this_month_views , ->() { joins(:counter).order('this_month DESC') }
+      scope :order_by_last_month_views , ->() { joins(:counter).order('last_month DESC') }
+      scope :order_by_total_views      , ->() { joins(:counter).order('total DESC') }
     end
 
     # Public: Increments the counter in 1 for this model

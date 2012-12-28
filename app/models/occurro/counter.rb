@@ -7,16 +7,6 @@ module Occurro
 
     belongs_to :countable, polymorphic: true
 
-    scope :order_by_today      , order('today DESC')
-    scope :order_by_yesterday  , order('yesterday DESC')
-    scope :order_by_this_week  , order('this_week DESC')
-    scope :order_by_last_week  , order('last_week DESC')
-    scope :order_by_this_month , order('this_month DESC')
-    scope :order_by_last_month , order('last_month DESC')
-    scope :order_by_total      , order('total DESC')
-
-
-
     # Public: Rotate the counter value for the period_type
     #
     # * period_type: 
