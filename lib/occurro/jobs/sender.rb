@@ -23,7 +23,7 @@ module Occurro
         when false, nil
           Occurro::Counter.increment_counters(model, count)
         when :resque, 'resque'
-          Resque.enqueue Occurro::Jobs::Resque, model.class.name, model.id, count
+          Resque.enqueue Occurro::Jobs::Resque, model.class.base_class.name, model.id, count
         when :delayed_job, 'delayed_job'
           Delayed::Job.enqueue Occurro::Jobs::DelayedJob.new(model, count)
         else

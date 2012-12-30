@@ -35,7 +35,7 @@ module Occurro
     # Public: increments 'model' counters by a 'count' factor
     #
     def self.increment_counters(model, count = 1)
-      counter = Occurro::Counter.find_or_create_by_countable_type_and_countable_id(model.class.name, model.id)
+      counter = Occurro::Counter.find_or_create_by_countable_type_and_countable_id(model.class.base_class.name, model.id)
       counter.update_attributes({
         :today      => counter.today      + count,
         :this_week  => counter.this_week  + count,

@@ -3,7 +3,7 @@ module Occurro
 
     # Increments the counter based on the model counter_cache option.
     # If the counter_cache limit is not reached, it will store the value
-    # on Rails.cache, and will submit it to persistence only when 
+    # on Rails.cache, and will submit it to persistence only when
     # there are as many entries as the counter_cache value
     #
     def self.increment_counter(model)
@@ -18,7 +18,7 @@ module Occurro
     # Returns the key name to the cache
     #
     def self.key_name(model)
-      "counters_cache_#{model.class.name}_#{model.id}"
+      "counters_cache_#{model.class.base_class.name}_#{model.id}"
     end
 
     # Updates the cached counter with a new value

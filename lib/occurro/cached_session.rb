@@ -5,7 +5,7 @@ module Occurro
     # the given model. Retuns true or false.
     #
     def self.unique_visitor?(model, session)
-      !(session[:occurro] && session[:occurro]["#{model.class.name}"] && session[:occurro]["#{model.class.name}"]["#{model.id}"])
+      !(session[:occurro] && session[:occurro]["#{model.class.base_class.name}"] && session[:occurro]["#{model.class.base_class.name}"]["#{model.id}"])
     end
 
     # Public: Adds the given model to the given session.
@@ -13,8 +13,8 @@ module Occurro
     #
     def self.add_cache(model, session)
       session[:occurro] ||= {}
-      session[:occurro]["#{model.class.name}"] ||= {}
-      session[:occurro]["#{model.class.name}"]["#{model.id}"] = true
+      session[:occurro]["#{model.class.base_class.name}"] ||= {}
+      session[:occurro]["#{model.class.base_class.name}"]["#{model.id}"] = true
     end
 
   end
