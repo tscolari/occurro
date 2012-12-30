@@ -24,7 +24,7 @@ module Occurro
     # Public: Increments the counter in 1 for this model
     #
     def increment_counter
-      return Occurro::CachedCounter.increment_counter(self) if self.class.counter_cache > 0
+      return Occurro::CachedCounter.increment_counter(self) if self.class.base_class.counter_cache > 0
       Occurro::Jobs::Sender.increment_counters_job(self, 1)
     end
 
