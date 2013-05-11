@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    occurro (0.2.4)
+    occurro (0.2.5)
       rails (>= 3.2.0)
 
 GEM

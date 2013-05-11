@@ -1,7 +1,5 @@
 module Occurro
   class Counter < ActiveRecord::Base
-    attr_accessible :today, :this_week, :this_month, :total
-
     validates :countable, presence: true
     validates :countable_id, uniqueness: { scope: :countable_type }
 
