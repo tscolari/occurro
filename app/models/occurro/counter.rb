@@ -7,27 +7,25 @@ module Occurro
 
     # Public: Rotate the counter value for the period_type
     #
-    # * period_type: 
+    # * period_type:
     #   :daily   #=> daily rotation
     #   :weekly  #=> weekly rotation
     #   :monthly #=> monthly rotation
     #
     def update_counter(period_type)
-      column_from, column_to =
-        case period_type.to_s
-        when 'daily'
-          ['today', 'yesterday']
-        when 'weekly'
-          ['this_week', 'last_week']
-        when 'monthly'
-          ['this_month', 'last_month']
-        else
-          return false
-        end
+      column_from, column_to = self.class.columns_to_shift(period_type)
+      return unless column_from && column_to
 
       self.send("#{column_to}=", self.send(column_from))
       self.send("#{column_from}=", 0)
-      self.save 
+      self.save
+    end
+
+    def self.update_counters(period_type)
+      column_from, column_to = columns_to_shift(period_type)
+      return unless column_from && column_to
+
+      update_all("#{column_to} = #{column_from}, #{column_from} = 0")
     end
 
     # Public: increments 'model' counters by a 'count' factor
@@ -39,8 +37,21 @@ module Occurro
         :this_week  => counter.this_week  + count,
         :this_month => counter.this_month + count,
         :total      => counter.total      + count
-      }) 
+      })
       Occurro::DailyCounter.increment_counters(model, count) if model.class.use_daily_counters?
+    end
+
+    def self.columns_to_shift(period_type)
+      case period_type.to_s
+      when 'daily'
+        ['today', 'yesterday']
+      when 'weekly'
+        ['this_week', 'last_week']
+      when 'monthly'
+        ['this_month', 'last_month']
+      else
+        [false, false]
+      end
     end
 
   end
