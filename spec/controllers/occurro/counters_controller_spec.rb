@@ -2,6 +2,7 @@ require 'spec_helper'
 
 module Occurro
   describe CountersController do
+    routes { Occurro::Engine.routes }
     let(:dummy) { FactoryGirl.create(:dummy_item) }
 
     context "Unique visitor" do
