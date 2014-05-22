@@ -16,9 +16,10 @@ module Occurro
       column_from, column_to = self.class.columns_to_shift(period_type)
       return unless column_from && column_to
 
-      self.send("#{column_to}=", self.send(column_from))
-      self.send("#{column_from}=", 0)
-      self.save
+      self.update_attributes({
+        column_to => self[column_from],
+        column_from => 0
+      })
     end
 
     def self.update_counters(period_type)
